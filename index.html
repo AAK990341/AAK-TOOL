@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AAK Tool – LaTeX Renderer</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <h2>AAK Tool – Paste LaTeX Below</h2>
+  <textarea id="input" rows="6" cols="60" placeholder="Type LaTeX like \frac{a}{b} or \begin{bmatrix}1&2\\3&4\end{bmatrix}"></textarea><br><br>
+
+  <button onclick="renderMath()">Render</button>
+  <button onclick="cleanLatex()">Remove Delimiters</button>
+
+  <h3>Rendered Output:</h3>
+  <div id="output" style="border:1px solid gray; padding:15px;"></div>
+
+  <script>
+    function renderMath() {
+      const raw = document.getElementById("input").value;
+      document.getElementById("output").innerHTML = `\\[${raw}\\]`;
+      MathJax.typesetPromise();
+    }
+
+    function cleanLatex() {
+      let raw = document.getElementById("input").value;
+      raw = raw.replace(/^\\\[|\\\]$/g, "");
+      raw = raw.replace(/^\$\$|\$\$$/g, "");
+      document.getElementById("input").value = raw;
+    }
+  </script>
+</body>
+</html>
